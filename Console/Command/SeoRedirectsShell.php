@@ -2,7 +2,7 @@
 App::uses('Shell', 'Console');
 App::uses('Set', 'Utility');
 class SeoRedirectsShell extends Shell {
-	public $uses = array('Seo.SeoUrl', 'Seo.SeoUri', 'Seo.SeoRedirect');
+	public $uses = array('Seo.SeoUri', 'Seo.SeoRedirect');
 
 	/**
 	 * Default action
@@ -127,8 +127,7 @@ class SeoRedirectsShell extends Shell {
 			$this->out("	    (active={$redirect['SeoRedirect']['is_active']}) (priority={$redirect['SeoRedirect']['priority']}) (callback={$redirect['SeoRedirect']['callback']})");
 		}	else {
 			$this->out("Errors");
-			print_r($this->SeoUrl->errors);
-			print_r($this->SeoUrl->validationErrors);
+			print_r($this->SeoUri->validationErrors);
 			print_r($this->SeoRedirect->validationErrors);
 			$this->out();
 		}

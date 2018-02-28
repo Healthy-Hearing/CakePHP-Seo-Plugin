@@ -14,7 +14,6 @@ class SeoAppError {
 	
 	var $SeoRedirect = null;
 	var $SeoStatusCode = null;
-	var $SeoUrl = null;
 	var $SeoUri = null;
 	
 	/**
@@ -31,13 +30,6 @@ class SeoAppError {
 	function catch404(){
 		$this->__uriToStatusCode();
 		$this->__uriToRedirect();
-	}
-	
-	/**
-	* Update to levenshtien
-	*/
-	function runLevenshtein(){
-		$this->__uriToLevenshtein();
 	}
 	
 	/**
@@ -180,28 +172,6 @@ class SeoAppError {
 	}
 	
 	/**
-	* Go through the uri to levenshtein url database and find the closest redirect based in sitemap 
-	* @return void
-	*/
-	function __uriToLevenshtein(){
-		$levconfig = SeoUtil::getConfig('levenshtein');
-		if(!$levconfig['active']){
-			return;
-		}
-		
-		$this->__loadModel('SeoUrl');
-		$request = env('REQUEST_URI');
-		$redirect = $this->SeoUrl->findRedirectByRequest($request);
-		if($redirect['redirect'] != $request){
-			if(SeoUtil::getConfig('log')){
-				CakeLog::write('seo_levenshtein', "Levenshtein Redirect $request to {$redirect['redirect']} score {$redirect['shortest']}");
-			}
-			$this->controller->redirect($redirect['redirect'], 301);
-		}
-		return;
-	}
-	
-	/**
 	* Load the SeoRedirect Model if it's not already loaded.
 	* @return void
 	*/
@@ -222,7 +192,6 @@ class SeoExceptionHandler extends HttpException {
 		$SeoAppError = new SeoAppError();
 		if($error->getCode() == 404){
 			$SeoAppError->catch404();
-			$SeoAppError->runLevenshtein();
 		}
 		
 		$text = $message ? $message : $error->getMessage();

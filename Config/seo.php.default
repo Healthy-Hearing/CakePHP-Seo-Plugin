@@ -17,14 +17,6 @@ $config = array(
     'log' => true,
     'cacheEngine' => false, // optionally cache things to save on DB requests - eg: 'default'
     'searchTerms' => true, //turn on term finding
-    'levenshtein' => array(
-    	'active' => false,
-    	'threshold' => 5, //-1 to ALWAYS find the closest match
-    	'cost_add' => 1, //cost to add a character, higher the amount the less you can add to find a match
-    	'cost_change' => 1, //cost to change a character, higher the amount the less you can change to find a match
-    	'cost_delete' => 1, //cost to delete a character, higher the ammount the less you can delete to find a match
-    	'source' => '/sitemap.xml' //URL to list of urls in a sitemap
-    ),
     'abTesting' => array(
     	'category' => 'ABTest', //Category for your ABTesting in Google Analytics
     	'scope' => 3, //Scope for your ABTesting in Google Analytics

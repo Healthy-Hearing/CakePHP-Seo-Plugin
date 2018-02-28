@@ -83,9 +83,9 @@ class SeoHelper extends AppHelper {
 		if ($overwrite || $url === null) {
 			$this->loadModel('SeoCanonical');
 			$request = env('REQUEST_URI');
-			$seo_url = $this->SeoCanonical->findByUri($request);
-			if (!empty($seo_url)) { //Only overwrite if we have a canonical to overwrite
-				$url = $seo_url;
+			$canonicalUrl = $this->SeoCanonical->findByUri($request);
+			if (!empty($canonicalUrl)) { //Only overwrite if we have a canonical to overwrite
+				$url = $canonicalUrl;
 			}
 		}
 
