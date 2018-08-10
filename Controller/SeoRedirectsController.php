@@ -5,12 +5,17 @@ class SeoRedirectsController extends SeoAppController {
 	var $helpers = array('Time');
 	
 	function admin_index($filter = null) {
-		if(!empty($this->data)){
+		if (!empty($this->data['SeoRedirect']['filter'])) {
 			$filter = $this->data['SeoRedirect']['filter'];
 		}
-		$conditions = $this->SeoRedirect->generateFilterConditions($filter);
+		list($filter, $running_last_search) = $this->handleLastSearch($filter, 'SeoRedirect');
+		$conditions = array_merge(
+			$this->SeoRedirect->search($this->request->params['named']),
+			$this->SeoRedirect->generateFilterConditions($filter)
+		);
 		$this->set('seoRedirects',$this->paginate($conditions));
 		$this->set('filter', $filter);
+		$this->set('running_last_search', $running_last_search);
 	}
 	
 	function admin_view($id = null) {
