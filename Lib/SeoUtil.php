@@ -105,6 +105,8 @@ class SeoUtil extends Object {
 	*/
 	static function requestMatch($request, $uri = null){
 		if($uri){
+			$request = trim($request);
+			$uri = trim($uri);
 			if(self::isRegEx($uri) && preg_match($uri, $request)) {
 				//Many To Many --using regular expression
 				return true;
